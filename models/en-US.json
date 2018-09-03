@@ -1,0 +1,28 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "timezone greeter",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "GreetMeIntent",
+          "samples": [
+            "hello",
+            "greet me"
+          ]
+        }
+      ]
+    }
+  }
+}
