@@ -1,7 +1,7 @@
 /* eslint-disable  func-names */
 /* eslint-disable  no-console */
 
-const Alexa = require('ask-sdk');
+const Alexa = require('ask-sdk-core');
 const momenttz = require('moment-timezone');
 const moment = require('moment');
 const APP_NAME = "Greeter"
