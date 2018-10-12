@@ -47,6 +47,60 @@ const GreetMeIntentHandler = {
   },
 }
 
+const GetDistanceMeasurementUnitHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'DistanceMeasurementUnitIntent';
+  },
+  async handle(handlerInput) {
+    const { requestEnvelope, serviceClientFactory, responseBuilder } = handlerInput;
+    let {deviceId} = requestEnvelope.context.System.device;
+    const upsServiceClient = serviceClientFactory.getUpsServiceClient();
+    const userDistanceMeasurmentUnit = await upsServiceClient.getSystemDistanceUnits(deviceId);
+    if (!userDistanceMeasurmentUnit) {
+      const speechText = `It looks like you don\'t have distance measurement unit set. You can set it from the companion app.`
+      return responseBuilder
+                    .speak(speechText)
+                    .withSimpleCard(APP_NAME, speechText)
+                    .getResponse();
+    }
+    console.log("Mesurement unit is", JSON.stringify(userDistanceMeasurmentUnit));
+    const speechText = `Your measurement unit is ${userDistanceMeasurmentUnit}`;
+    return handlerInput.responseBuilder
+    .speak(speechText)
+    .withSimpleCard('Hello World', speechText)
+    .getResponse();
+  }
+}
+
+const GetTempMeasurementUnitHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'TempMeasurementUnitIntent';
+  },
+  async handle(handlerInput) {
+    const { requestEnvelope, serviceClientFactory, responseBuilder } = handlerInput;
+    let {deviceId} = requestEnvelope.context.System.device;
+    const upsServiceClient = serviceClientFactory.getUpsServiceClient();
+    const userTempUnit = await upsServiceClient.getSystemTemperatureUnit(deviceId);
+    if (!userTempUnit) {
+      const speechText = `It looks like you don\'t have temperature measurement unit set. You can set it from the companion app.`
+      return responseBuilder
+                    .speak(speechText)
+                    .withSimpleCard(APP_NAME, speechText)
+                    .getResponse();
+    }
+    console.log("Mesurement unit is", JSON.stringify(userTempUnit));
+    const speechText = `Your measurement unit is ${userTempUnit}`;
+    return handlerInput.responseBuilder
+    .speak(speechText)
+    .withSimpleCard('Hello World', speechText)
+    .getResponse();
+  }
+}
+
+
+
 const HelpIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
@@ -141,6 +195,8 @@ exports.handler = skillBuilder
   .addRequestHandlers(
     LaunchRequestHandler,
     GreetMeIntentHandler,
+    GetDistanceMeasurementUnitHandler,
+    GetTempMeasurementUnitHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler

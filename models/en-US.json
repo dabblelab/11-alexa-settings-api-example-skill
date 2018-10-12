@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "timezone greeter",
+      "invocationName": "settings api starter",
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
@@ -20,6 +20,20 @@
           "samples": [
             "hello",
             "greet me"
+          ]
+        },
+        {
+          "name": "DistanceMeasurementUnitIntent",
+          "samples": [
+            "distance unit",
+            "distance measurement unit"
+          ]
+        },
+        {
+          "name": "TempMeasurementUnitIntent",
+          "samples": [
+            "temperature unit",
+            "temperature measurement unit"
           ]
         }
       ]
