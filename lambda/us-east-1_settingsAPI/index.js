@@ -56,16 +56,16 @@ const GetDistanceMeasurementUnitHandler = {
     const { requestEnvelope, serviceClientFactory, responseBuilder } = handlerInput;
     let {deviceId} = requestEnvelope.context.System.device;
     const upsServiceClient = serviceClientFactory.getUpsServiceClient();
-    const userDistanceMeasurmentUnit = await upsServiceClient.getSystemDistanceUnits(deviceId);
-    if (!userDistanceMeasurmentUnit) {
+    const userDistanceMeasurementUnit = await upsServiceClient.getSystemDistanceUnits(deviceId);
+    if (!userDistanceMeasurementUnit) {
       const speechText = `It looks like you don\'t have distance measurement unit set. You can set it from the companion app.`
       return responseBuilder
                     .speak(speechText)
                     .withSimpleCard(APP_NAME, speechText)
                     .getResponse();
     }
-    console.log("Mesurement unit is", JSON.stringify(userDistanceMeasurmentUnit));
-    const speechText = `Your measurement unit is ${userDistanceMeasurmentUnit}`;
+    console.log("Measurement unit is", JSON.stringify(userDistanceMeasurementUnit));
+    const speechText = `Your measurement unit is ${userDistanceMeasurementUnit}`;
     return handlerInput.responseBuilder
     .speak(speechText)
     .withSimpleCard('Hello World', speechText)
@@ -82,16 +82,16 @@ const GetTempMeasurementUnitHandler = {
     const { requestEnvelope, serviceClientFactory, responseBuilder } = handlerInput;
     let {deviceId} = requestEnvelope.context.System.device;
     const upsServiceClient = serviceClientFactory.getUpsServiceClient();
-    const userTempUnit = await upsServiceClient.getSystemTemperatureUnit(deviceId);
-    if (!userTempUnit) {
+    const userTemperatureUnit = await upsServiceClient.getSystemTemperatureUnit(deviceId);
+    if (!userTemperatureUnit) {
       const speechText = `It looks like you don\'t have temperature measurement unit set. You can set it from the companion app.`
       return responseBuilder
                     .speak(speechText)
                     .withSimpleCard(APP_NAME, speechText)
                     .getResponse();
     }
-    console.log("Mesurement unit is", JSON.stringify(userTempUnit));
-    const speechText = `Your measurement unit is ${userTempUnit}`;
+    console.log("Measurement unit is", JSON.stringify(userTemperatureUnit));
+    const speechText = `Your measurement unit is ${userTemperatureUnit}`;
     return handlerInput.responseBuilder
     .speak(speechText)
     .withSimpleCard('Hello World', speechText)
