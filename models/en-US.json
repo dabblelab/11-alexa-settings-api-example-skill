@@ -16,22 +16,26 @@
           "samples": []
         },
         {
-          "name": "GreetMeIntent",
+          "name": "TimezoneIntent",
           "samples": [
-            "hello",
-            "greet me"
+            "time",
+            "timezone",
+            "time zone",
+            "what is my timezone"
           ]
         },
         {
-          "name": "DistanceMeasurementUnitIntent",
+          "name": "DistanceIntent",
           "samples": [
+            "distance",
             "distance unit",
             "distance measurement unit"
           ]
         },
         {
-          "name": "TempMeasurementUnitIntent",
+          "name": "TemperatureIntent",
           "samples": [
+            "temperature",
             "temperature unit",
             "temperature measurement unit"
           ]

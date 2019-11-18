@@ -4,15 +4,15 @@
 const Alexa = require('ask-sdk-core');
 const momenttz = require('moment-timezone');
 const moment = require('moment');
-const APP_NAME = "Greeter"
+const APP_NAME = "Template Eleven"
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   handle(handlerInput) {
-    const speechText = 'Hello there. Welcome to Alexa. you can say greet me!';
-    const reprompt = 'Say greet me';
+    const speechText = 'Say: timezone, distance, or temperature, to hear your Alexa settings.';
+    const reprompt = 'Say: timezone, distance, or temperature.';
 
     return handlerInput.responseBuilder
       .speak(speechText)
@@ -22,10 +22,10 @@ const LaunchRequestHandler = {
   },
 };
 
-const GreetMeIntentHandler = {
+const TimezoneIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && handlerInput.requestEnvelope.request.intent.name === 'GreetMeIntent';
+      && handlerInput.requestEnvelope.request.intent.name === 'TimezoneIntent';
   },
   async handle(handlerInput) {
     const { requestEnvelope, serviceClientFactory, responseBuilder } = handlerInput;
@@ -35,22 +35,21 @@ const GreetMeIntentHandler = {
     const usertimeZone = await upsServiceClient.getSystemTimeZone(deviceId);
     const now = momenttz.utc();
     const localTime = now.tz(usertimeZone).format('h:mma');
-    let speechText = `Your local time is ${localTime}`;
+    let speechText = `Your local time is ${localTime}. Your timezone is ${usertimeZone}`;
 
     speechText += calculateGreeting(localTime);
 
     return handlerInput.responseBuilder
     .speak(speechText)
-    .withSimpleCard('Hello World', speechText)
     .getResponse();
     
   },
 }
 
-const GetDistanceMeasurementUnitHandler = {
+const DistanceIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && handlerInput.requestEnvelope.request.intent.name === 'DistanceMeasurementUnitIntent';
+      && handlerInput.requestEnvelope.request.intent.name === 'DistanceIntent';
   },
   async handle(handlerInput) {
     const { requestEnvelope, serviceClientFactory, responseBuilder } = handlerInput;
@@ -64,8 +63,8 @@ const GetDistanceMeasurementUnitHandler = {
                     .withSimpleCard(APP_NAME, speechText)
                     .getResponse();
     }
-    console.log("Measurement unit is", JSON.stringify(userDistanceMeasurementUnit));
-    const speechText = `Your measurement unit is ${userDistanceMeasurementUnit}`;
+    console.log("Your distance measurement unit is", JSON.stringify(userDistanceMeasurementUnit));
+    const speechText = `Your distance measurement unit is ${userDistanceMeasurementUnit}`;
     return handlerInput.responseBuilder
     .speak(speechText)
     .withSimpleCard('Hello World', speechText)
@@ -73,10 +72,10 @@ const GetDistanceMeasurementUnitHandler = {
   }
 }
 
-const GetTempMeasurementUnitHandler = {
+const TemperatureIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && handlerInput.requestEnvelope.request.intent.name === 'TempMeasurementUnitIntent';
+      && handlerInput.requestEnvelope.request.intent.name === 'TemperatureIntent';
   },
   async handle(handlerInput) {
     const { requestEnvelope, serviceClientFactory, responseBuilder } = handlerInput;
@@ -90,11 +89,10 @@ const GetTempMeasurementUnitHandler = {
                     .withSimpleCard(APP_NAME, speechText)
                     .getResponse();
     }
-    console.log("Measurement unit is", JSON.stringify(userTemperatureUnit));
-    const speechText = `Your measurement unit is ${userTemperatureUnit}`;
+    console.log("Temperature measurement unit is", JSON.stringify(userTemperatureUnit));
+    const speechText = `Your temperature measurement unit is ${userTemperatureUnit}`;
     return handlerInput.responseBuilder
     .speak(speechText)
-    .withSimpleCard('Hello World', speechText)
     .getResponse();
   }
 }
@@ -107,12 +105,11 @@ const HelpIntentHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
-    const speechText = 'You can say hello to me!';
+    const speechText = 'You can say; timezone, distance, or temperature, to hear your Alexa settings.';
 
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard('Hello World', speechText)
       .getResponse();
   },
 };
@@ -128,7 +125,6 @@ const CancelAndStopIntentHandler = {
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .withSimpleCard('Hello World', speechText)
       .getResponse();
   },
 };
@@ -194,9 +190,9 @@ const skillBuilder = Alexa.SkillBuilders.custom();
 exports.handler = skillBuilder
   .addRequestHandlers(
     LaunchRequestHandler,
-    GreetMeIntentHandler,
-    GetDistanceMeasurementUnitHandler,
-    GetTempMeasurementUnitHandler,
+    TimezoneIntentHandler,
+    DistanceIntentHandler,
+    TemperatureIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler
