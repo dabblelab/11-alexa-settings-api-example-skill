@@ -14,7 +14,7 @@
             "timezone",
             "settings"
           ],
-          "name": "timezone greeter",
+          "name": "template eleven",
           "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/5eaf/089b2356970740ae9f94cb355cf7962c/APP_ICON?versionId=yxnVQooo_WbQ2bUKWFG1DLWOMBodTuMk&AWSAccessKeyId=AKIAIEYXX6DHY7O4XWMA&Expires=1536081801&Signature=4wZ48tIKcG0pSNcmrAoU320LTOo%3D",
           "description": "say alexa open timezone greeter to test the timezone based greeting",
           "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/bbdc/51a9dbef933346069da6b4ce86fb9b62/APP_ICON_LARGE?versionId=Hh8zdnPrUM9Wot9bGvotDo8QSxYl9r6p&AWSAccessKeyId=AKIAIEYXX6DHY7O4XWMA&Expires=1536081801&Signature=thqFNutZrS4qOS6zZ0qrsBcDC8I%3D"
@@ -28,7 +28,7 @@
     "apis": {
       "custom": {
         "endpoint": {
-          "sourceDir": "./lambda/us-east-1_settingsAPI"
+          "sourceDir": "./lambda/custom"
         },
         "interfaces": []
       }
