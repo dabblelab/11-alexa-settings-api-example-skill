@@ -35,7 +35,7 @@ const TimezoneIntentHandler = {
     const usertimeZone = await upsServiceClient.getSystemTimeZone(deviceId);
     const now = momenttz.utc();
     const localTime = now.tz(usertimeZone).format('h:mma');
-    let speechText = `Your local time is ${localTime}. Your timezone is ${usertimeZone}`;
+    let speechText = `Your timezone is ${usertimeZone}. Your local time is ${localTime}. `;
 
     speechText += calculateGreeting(localTime);
 
